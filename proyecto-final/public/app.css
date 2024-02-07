@@ -1,0 +1,28 @@
+body{
+    background-color: #333;
+}
+
+.card{
+    background-color: #9b9999;
+}
+
+.nav-link {
+    color: rgb(9, 185, 18);
+}
+
+.pepe, .pepea{
+    background-color: rgb(9, 185, 18);
+    border-radius: 5%;
+    color: white;
+    height: 40px;
+}
+
+.logoo{
+    position: absolute;
+    left: 2%;
+}
+
+.yaya{
+width: 50%;
+}
+
