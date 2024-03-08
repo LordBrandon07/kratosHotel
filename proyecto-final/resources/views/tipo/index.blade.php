@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Empleado
+    Tipo
 @endsection
 
 @section('content')
-    <div class="container-fluid col-8">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Empleado') }}
+                                {{ __('Tipo') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('empleados.create') }}" class="btn pepe btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear nuevo') }}
+                                <a href="{{ route('tipos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Create New') }}
                                 </a>
                               </div>
                         </div>
@@ -36,26 +36,24 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Documento</th>
-										<th>Cargo</th>
-										<th>Salario</th>
+										<th>Name</th>
+										<th>Description</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($empleados as $empleado)
+                                    @foreach ($tipos as $tipo)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $empleado->documento }}</td>
-											<td>{{ $empleado->cargo }}</td>
-											<td>{{ $empleado->salario }}</td>
+											<td>{{ $tipo->name }}</td>
+											<td>{{ $tipo->description }}</td>
 
                                             <td>
-                                                <form action="{{ route('empleados.destroy',$empleado->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('empleados.show',$empleado->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('empleados.edit',$empleado->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('tipos.destroy',$tipo->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('tipos.show',$tipo->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('tipos.edit',$tipo->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -68,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $empleados->links() !!}
+                {!! $tipos->links() !!}
             </div>
         </div>
     </div>

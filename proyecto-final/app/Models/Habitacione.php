@@ -14,7 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property $tarifa
  * @property $capacidad
  * @property $ruta_imagen
+ * @property $created_at
+ * @property $updated_at
  *
+ * @property Tipo $tipo
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -40,5 +43,13 @@ class Habitacione extends Model
     protected $fillable = ['hab_numero','estado','tipo_hab','tarifa','capacidad','ruta_imagen'];
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function tipo()
+    {
+        return $this->hasOne('App\Models\Tipo', 'id', 'tipo_hab');
+    }
+    
 
 }

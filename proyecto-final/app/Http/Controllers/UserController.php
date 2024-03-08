@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
@@ -22,7 +24,28 @@ class UserController extends Controller
 
 
     public function store(Request $request){
-        request()->validate(User::$rules);
+        // Validación de los datos del formulario
+        $request->validate([
+            'documento' => 'required',
+            'name' => 'required',
+            'fecha_nacimiento' => 'required|date|before_or_equal:-18 years', // Asegura que la fecha de nacimiento sea de hace al menos 18 años
+            'email' => [
+                'required',
+                'email',
+                'regex:/^.+@.+?\..+$/',
+                Rule::unique('users'), // Asegura que el correo electrónico sea único en la tabla 'users'
+            ],
+            'password' => [
+                'required',
+                'min:8',
+                // Expresión regular personalizada para requerir al menos una mayúscula y un número
+                'regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+            ],
+            'telefono' => ['required', 'min:8', 'max:15'], // Validación de número de teléfono
+            'id_rol' => 'required',
+        ]);
+    
+        // Crear un nuevo usuario con los datos proporcionados
         User::create([
             'documento' => $request->documento,
             'name' => $request->name,
@@ -32,7 +55,11 @@ class UserController extends Controller
             'telefono' => $request->telefono,
             'id_rol' => $request->id_rol,
         ]);
+    
+        // Intento de inicio de sesión para el nuevo usuario
         auth()->attempt($request->only('documento', 'password'));
+    
+        // Redireccionar a la ruta de índice de usuarios con un mensaje de éxito
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente...');
     }
 

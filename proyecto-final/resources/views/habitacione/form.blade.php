@@ -34,6 +34,6 @@
 
     </div>
     <div class="box-footer mt20">
-        <button type="submit" class="btn pepe">{{ __('Enviar') }}</button>
+        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>
 </div>

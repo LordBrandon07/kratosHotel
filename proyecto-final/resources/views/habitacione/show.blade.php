@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $habitacione->name ?? "{{ __('Ver') Habitacion" }}
+    {{ $habitacione->name ?? "{{ __('Show') Habitacione" }}
 @endsection
 
 @section('content')
-    <section class="content container-fluid col-8">
+    <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Ver') }} Habitacion</span>
+                            <span class="card-title">{{ __('Show') }} Habitacione</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('habitaciones.index') }}"> {{ __('Volver') }}</a>
+                            <a class="btn btn-primary" href="{{ route('habitaciones.index') }}"> {{ __('Back') }}</a>
                         </div>
                     </div>
 

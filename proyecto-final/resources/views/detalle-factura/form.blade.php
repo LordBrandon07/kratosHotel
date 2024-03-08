@@ -17,11 +17,6 @@
             {!! $errors->first('servicio_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
-            {{ Form::label('producto_id') }}
-            {{ Form::text('producto_id', $detalleFactura->producto_id, ['class' => 'form-control' . ($errors->has('producto_id') ? ' is-invalid' : ''), 'placeholder' => 'Producto Id']) }}
-            {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        <div class="form-group">
             {{ Form::label('cantidad') }}
             {{ Form::text('cantidad', $detalleFactura->cantidad, ['class' => 'form-control' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'placeholder' => 'Cantidad']) }}
             {!! $errors->first('cantidad', '<div class="invalid-feedback">:message</div>') !!}

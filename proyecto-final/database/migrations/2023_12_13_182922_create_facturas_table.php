@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('descuento',10,2);
             $table->float('total',10,2);
             $table->unsignedBigInteger('id_cliente');
-            $table->foreign('id_cliente')->references('id')->on('clientes');
+            $table->foreign('id_cliente')->references('id')->on('users');
             $table->timestamps();
         });
     }

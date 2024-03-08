@@ -6,9 +6,9 @@
     @endsection
 
     <div class="container px-4 py-5 my-5 col-4">
-    <form class="form-control card text-light" action="{{ route('login') }}" method="POST" novalidate>
+    <form class="form-control card " action="{{ route('login') }}" method="POST" novalidate>
       @csrf
-      <h1>INICIO DE SESION</h1>
+      <center><h1>INICIO DE SESION</h1></center>
       @if (session('mensaje'))
         <h6>{{ session('mensaje') }}</h6>   
       @endif

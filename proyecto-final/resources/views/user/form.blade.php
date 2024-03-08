@@ -14,17 +14,17 @@
         <div class="form-group">
             {{ Form::label('fecha_nacimiento') }}
             {{ Form::date('fecha_nacimiento', $user->fecha_nacimiento, ['class' => 'form-control' . ($errors->has('fecha_nacimiento') ? ' is-invalid' : ''), 'placeholder' => 'Fecha Nacimiento']) }}
-            {!! $errors->first('fecha_nacimiento', '<div class="invalid-feedback">:message</div>') !!}
+            {!! $errors->first('fecha_nacimiento', '<div class="invalid-feedback">Necesitas ser mayor de edad</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('email') }}
             {{ Form::text('email', $user->email, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'placeholder' => 'Email']) }}
-            {!! $errors->first('email', '<div class="invalid-feedback">:message</div>') !!}
+            {!! $errors->first('email', '<div class="invalid-feedback">El correo electronico no es valido</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('password') }}
             {{ Form::text('password', $user->password, ['class' => 'form-control' . ($errors->has('password') ? ' is-invalid' : ''), 'placeholder' => '********']) }}
-            {!! $errors->first('password', '<div class="invalid-feedback">:message</div>') !!}
+            {!! $errors->first('password', '<div class="invalid-feedback">La contraseña no es valida, se necesita minimo 8 caracteres una mayuscula y un numero</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('telefono') }}

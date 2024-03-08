@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Tipo;
 use Illuminate\Http\Request;
 
 /**
- * Class ClienteController
+ * Class TipoController
  * @package App\Http\Controllers
  */
-class ClienteController extends Controller
+class TipoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +18,10 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::paginate();
+        $tipos = Tipo::paginate();
 
-        return view('cliente.index', compact('clientes'))
-            ->with('i', (request()->input('page', 1) - 1) * $clientes->perPage());
+        return view('tipo.index', compact('tipos'))
+            ->with('i', (request()->input('page', 1) - 1) * $tipos->perPage());
     }
 
     /**
@@ -31,8 +31,8 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        $cliente = new Cliente();
-        return view('cliente.create', compact('cliente'));
+        $tipo = new Tipo();
+        return view('tipo.create', compact('tipo'));
     }
 
     /**
@@ -43,12 +43,12 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Cliente::$rules);
+        request()->validate(Tipo::$rules);
 
-        $cliente = Cliente::create($request->all());
+        $tipo = Tipo::create($request->all());
 
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente created successfully.');
+        return redirect()->route('tipos.index')
+            ->with('success', 'Tipo created successfully.');
     }
 
     /**
@@ -59,9 +59,9 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        $cliente = Cliente::find($id);
+        $tipo = Tipo::find($id);
 
-        return view('cliente.show', compact('cliente'));
+        return view('tipo.show', compact('tipo'));
     }
 
     /**
@@ -72,26 +72,26 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        $cliente = Cliente::find($id);
+        $tipo = Tipo::find($id);
 
-        return view('cliente.edit', compact('cliente'));
+        return view('tipo.edit', compact('tipo'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Cliente $cliente
+     * @param  Tipo $tipo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, Tipo $tipo)
     {
-        request()->validate(Cliente::$rules);
+        request()->validate(Tipo::$rules);
 
-        $cliente->update($request->all());
+        $tipo->update($request->all());
 
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente updated successfully');
+        return redirect()->route('tipos.index')
+            ->with('success', 'Tipo updated successfully');
     }
 
     /**
@@ -101,9 +101,9 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        $cliente = Cliente::find($id)->delete();
+        $tipo = Tipo::find($id)->delete();
 
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente deleted successfully');
+        return redirect()->route('tipos.index')
+            ->with('success', 'Tipo deleted successfully');
     }
 }

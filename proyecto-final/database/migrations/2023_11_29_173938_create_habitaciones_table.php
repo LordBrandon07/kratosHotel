@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('hab_numero',3)->unique();
             $table->unsignedBigInteger('estado');
             $table->unsignedBigInteger('tipo_hab');
+            $table->foreign('tipo_hab')->references('id')->on('tipos');
             $table->float('tarifa',10,2);
             $table->unsignedBigInteger('capacidad');
             $table->string('ruta_imagen');

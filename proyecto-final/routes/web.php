@@ -4,16 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\EmpleadoController;
-use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\TipoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\HabitacioneController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ServicioController;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\DetalleFacturaController;
 
@@ -36,16 +33,13 @@ Route::get('/', function () {
 
 Route::resource('users', UserController::class);
 Route::resource('roles', RoleController::class);
-Route::resource('empleados', EmpleadoController::class)->middleware('auth');
-Route::resource('clientes', ClienteController::class)->middleware('auth');
+Route::resource('tipos', TipoController::class)->middleware('auth');
 Route::resource('habitaciones', HabitacioneController::class)->middleware('auth');
 Route::resource('estados', EstadoController::class)->middleware('auth');
 Route::resource('reservas', ReservaController::class)->middleware('auth');
 Route::resource('servicios', ServicioController::class)->middleware('auth');
-Route::resource('categoria', CategoriaController::class)->middleware('auth');
-Route::resource('producto', ProductoController::class)->middleware('auth');
-Route::resource('factura', FacturaController::class)->middleware('auth');
-Route::resource('detalle', DetalleFacturaController::class)->middleware('auth');
+Route::resource('facturas', FacturaController::class)->middleware('auth');
+Route::resource('detalle-facturas', DetalleFacturaController::class)->middleware('auth');
 
 
 Route::get('auth/create', [UserController::class,'create'])->name('auth.create');

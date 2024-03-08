@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property $created_at
  * @property $updated_at
  *
- * @property Cliente $cliente
  * @property DetalleFactura[] $detalleFacturas
+ * @property User $user
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -43,19 +43,19 @@ class Factura extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function cliente()
-    {
-        return $this->hasOne('App\Models\Cliente', 'id', 'id_cliente');
-    }
-    
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function detalleFacturas()
     {
         return $this->hasMany('App\Models\DetalleFactura', 'factura_id', 'id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'id_cliente');
     }
     
 

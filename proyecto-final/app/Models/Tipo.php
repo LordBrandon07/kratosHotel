@@ -5,22 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Categoria
+ * Class Tipo
  *
  * @property $id
- * @property $nombre
+ * @property $name
+ * @property $description
  * @property $created_at
  * @property $updated_at
  *
- * @property Producto[] $productos
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Categoria extends Model
+class Tipo extends Model
 {
     
     static $rules = [
-		'nombre' => 'required',
+		'name' => 'required',
+		'description' => 'required',
     ];
 
     protected $perPage = 20;
@@ -30,16 +31,8 @@ class Categoria extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre'];
+    protected $fillable = ['name','description'];
 
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function productos()
-    {
-        return $this->hasMany('App\Models\Producto', 'categoria', 'id');
-    }
-    
 
 }

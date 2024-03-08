@@ -21,8 +21,6 @@ return new class extends Migration
             $table->foreign('reserva_id')->references('id')->on('reservas');
             $table->unsignedBigInteger('servicio_id');
             $table->foreign('servicio_id')->references('id')->on('servicios');
-            $table->unsignedBigInteger('producto_id');
-            $table->foreign('producto_id')->references('id')->on('productos');
             $table->integer('cantidad');
             $table->float('valor',10,2);
             $table->timestamps();

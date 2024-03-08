@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <section class="content container-fluid col-8">
+    <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -31,10 +31,6 @@
                         <div class="form-group">
                             <strong>Servicio Id:</strong>
                             {{ $detalleFactura->servicio_id }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Producto Id:</strong>
-                            {{ $detalleFactura->producto_id }}
                         </div>
                         <div class="form-group">
                             <strong>Cantidad:</strong>

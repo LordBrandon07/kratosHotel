@@ -10,50 +10,61 @@
 </head>
 <body>
     <!-- Nav tabs -->
-    <div class="container py-3">
-      <header>
-        <div>
-        <img src="{{asset('img/logow.png')}}" alt="" width="2.5%" class="logoo">
-        </div>
-        @auth
-        <p class="d-flex justify-content-end text-uppercase text-light">Bienvenido {{ auth()->user()->name }}</p>
-        <ul class="nav nav-pills d-flex justify-content-center">
-          <li class="nav-item pepe"><a href="/" class="nav-link pepea" aria-current="page">Inicio</a></li>
-          @if (auth()->user()->id_rol==1)
-            <li class="nav-item"><a href="../users" class="nav-link">Usuarios</a></li>
-            <li class="nav-item"><a href="../empleados" class="nav-link">Empleados</a></li>
-            <li class="nav-item"><a href="../roles" class="nav-link">Roles</a></li>
-            <li class="nav-item"><a href="../habitaciones" class="nav-link">Habitaciones</a></li>
-            <li class="nav-item"><a href="../estados" class="nav-link">Estados</a></li>
-            <li class="nav-item"><a href="../servicios" class="nav-link">Servicio</a></li>
+    <div class="headerr">
+      <div class="container py-3 ">
+        <header>
+          <div>
+          <a href="/home"><img src="{{asset('img/logow.png')}}" alt="" width="2.5%" class="logoo"></a>
+          </div>
+          @auth
+          <p class="d-flex justify-content-end text-uppercase text-light">Bienvenido {{ auth()->user()->name }}</p>
+          <ul class="nav nav-pills d-flex justify-content-center">
+            <li class="nav-item nav-text-p"><a href="/" class="nav-link nav-text-p" aria-current="page">Inicio</a></li>
+            @if (auth()->user()->id_rol==1)     <!-- Administrador -->
+              <li class="nav-item"><a href="../users" class="nav-link nav-text">Usuarios</a></li>
+              <li class="nav-item"><a href="../roles" class="nav-link nav-text">Roles</a></li>
+              <li class="nav-item"><a href="../habitaciones" class="nav-link nav-text">Habitaciones</a></li>
+              <li class="nav-item"><a href="../tipos" class="nav-link nav-text">Tipos Habitaciones</a></li>
+              <li class="nav-item"><a href="../reservas" class="nav-link nav-text">Reserva</a></li>
+              <li class="nav-item"><a href="../estados" class="nav-link nav-text">Estados</a></li>
+              <li class="nav-item"><a href="../servicios" class="nav-link nav-text">Servicios</a></li>
+              <li class="nav-item"><a href="../facturas" class="nav-link nav-text">Facturación</a></li>
+
+
+            @elseif (auth()->user()->id_rol==2)  <!-- Recepcion -->
+              <li class="nav-item"><a href="../users" class="nav-link">Usuarios</a></li>
+              <li class="nav-item"><a href="../habitaciones" class="nav-link">Habitaciones</a></li>
+              <li class="nav-item"><a href="../reservas" class="nav-link">Reserva</a></li>
+              <li class="nav-item"><a href="../servicios" class="nav-link">Servicios</a></li>
+              <li class="nav-item"><a href="../facturas" class="nav-link">Facturación</a></li>
+              <li class="nav-item"><a href="../detalle-facturas" class="nav-link">Detalle Factura</a></li>
+
+
+            @elseif (auth()->user()->id_rol==3)  <!-- Cliente -->
             <li class="nav-item"><a href="../reservas" class="nav-link">Reserva</a></li>
+              <li class="nav-item"><a href="../habitaciones" class="nav-link">Habitaciones</a></li>
+              <li class="nav-item"><a href="../servicios" class="nav-link">Servicios</a></li>
 
 
-          @elseif (auth()->user()->id_rol==2)
-            <li class="nav-item"><a href="../users" class="nav-link">Usuarios</a></li>
-            <li class="nav-item"><a href="../clientes" class="nav-link">Clientes</a></li>
-            <li class="nav-item"><a href="../habitaciones" class="nav-link">Habitaciones</a></li>
-          @elseif (auth()->user()->id_rol==3)
-            <li class="nav-item"><a href="../clientes" class="nav-link">Clientes</a></li>
-            <li class="nav-item"><a href="../habitaciones" class="nav-link">Habitaciones</a></li>
-          @elseif (auth()->user()->id_rol==4)
-            <li class="nav-item"><a href="../clientes" class="nav-link">Clientes</a></li>
-            <li class="nav-item"><a href="../habitaciones" class="nav-link">Habitaciones</a></li>
-          @endif
-          <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button class="btn pepe">
-                Salir
-            </button>
-          </form>
-        </ul>
-        @endauth
-        @guest
-        <ul class="nav nav-pills d-flex justify-content-center py-3">
-          <li class="nav-item pepe"><a href="../users/create" class="nav-link pepea">Registro</a></li>
-        </ul>
-        @endguest
-      </header>
+            @elseif (auth()->user()->id_rol==4)  <!-- Camarero/mesero -->
+              <li class="nav-item"><a href="../habitaciones" class="nav-link">Habitaciones</a></li>
+              <li class="nav-item"><a href="../detalle" class="nav-link ">Detalle Factura</a></li>
+            @endif
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <button class="btn nav-text-p">
+                  Salir
+              </button>
+            </form>
+          </ul>
+          @endauth
+          @guest
+          <ul class="nav nav-pills d-flex justify-content-center py-3">
+            <li class="nav-item "><a href="../users/create" class="nav-link nav-text">Registro</a></li>
+          </ul>
+          @endguest
+        </header>
+      </div>
     </div>
     
     <!-- Tab panes -->

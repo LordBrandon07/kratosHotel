@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid col-8">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -39,7 +39,6 @@
 										<th>Factura Id</th>
 										<th>Reserva Id</th>
 										<th>Servicio Id</th>
-										<th>Producto Id</th>
 										<th>Cantidad</th>
 										<th>Valor</th>
 
@@ -54,17 +53,16 @@
 											<td>{{ $detalleFactura->factura_id }}</td>
 											<td>{{ $detalleFactura->reserva_id }}</td>
 											<td>{{ $detalleFactura->servicio_id }}</td>
-											<td>{{ $detalleFactura->producto_id }}</td>
 											<td>{{ $detalleFactura->cantidad }}</td>
 											<td>{{ $detalleFactura->valor }}</td>
 
                                             <td>
                                                 <form action="{{ route('detalle-facturas.destroy',$detalleFactura->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('detalle-facturas.show',$detalleFactura->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('detalle-facturas.edit',$detalleFactura->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('detalle-facturas.show',$detalleFactura->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Ver') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('detalle-facturas.edit',$detalleFactura->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Borrar') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

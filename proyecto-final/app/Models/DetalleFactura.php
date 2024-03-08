@@ -11,14 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property $factura_id
  * @property $reserva_id
  * @property $servicio_id
- * @property $producto_id
  * @property $cantidad
  * @property $valor
  * @property $created_at
  * @property $updated_at
  *
  * @property Factura $factura
- * @property Producto $producto
  * @property Reserva $reserva
  * @property Servicio $servicio
  * @package App
@@ -31,7 +29,6 @@ class DetalleFactura extends Model
 		'factura_id' => 'required',
 		'reserva_id' => 'required',
 		'servicio_id' => 'required',
-		'producto_id' => 'required',
 		'cantidad' => 'required',
 		'valor' => 'required',
     ];
@@ -43,7 +40,7 @@ class DetalleFactura extends Model
      *
      * @var array
      */
-    protected $fillable = ['factura_id','reserva_id','servicio_id','producto_id','cantidad','valor'];
+    protected $fillable = ['factura_id','reserva_id','servicio_id','cantidad','valor'];
 
 
     /**
@@ -52,14 +49,6 @@ class DetalleFactura extends Model
     public function factura()
     {
         return $this->hasOne('App\Models\Factura', 'id', 'factura_id');
-    }
-    
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function producto()
-    {
-        return $this->hasOne('App\Models\Producto', 'id', 'producto_id');
     }
     
     /**
