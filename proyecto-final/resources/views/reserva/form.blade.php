@@ -19,7 +19,7 @@
         <div class="form-group">
             {{ Form::label('fecha_inicio') }}
             {{ Form::date('fecha_inicio', $reserva->fecha_inicio, ['class' => 'form-control' . ($errors->has('fecha_inicio') ? ' is-invalid' : '')]) }}
-            {!! $errors->first('fecha_inicio', '<div class="invalid-feedback">:message</div>') !!}
+            {!! $errors->first('fecha_inicio', '<div class="invalid-feedback">La fecha seleccionada ya no esta disponible</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('fecha_final') }}
