@@ -15,19 +15,18 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-            $table->integer('cant_hab');
             $table->integer('adultos');
-            $table->unsignedBigInteger('habitacion_id');
             $table->integer('ninos');
             $table->date('fecha_inicio');
             $table->date('fecha_final');
-            $table->float('valor',12,2);
-            $table->string('documento')->unique();
+            $table->unsignedFloat('valor',12,2);
+            $table->string('documento');
             $table->foreign('documento')->references('documento')->on('users');
+            $table->string('nro_hab',3);
+            $table->foreign('nro_hab')->references('hab_numero')->on('habitaciones');
             $table->unsignedBigInteger('est_id');
             $table->foreign('est_id')->references('id')->on('estados');
             $table->timestamps();
-            $table->foreign('habitacion_id')->references('id')->on('habitaciones');
         });
     }
 

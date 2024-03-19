@@ -2,18 +2,13 @@
     <div class="box-body">
         
         <div class="form-group">
-            {{ Form::label('cant_hab') }}
-            {{ Form::text('cant_hab', $reserva->cant_hab, ['class' => 'form-control' . ($errors->has('cant_hab') ? ' is-invalid' : ''), 'placeholder' => 'Cant Hab']) }}
-            {!! $errors->first('cant_hab', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        <div class="form-group">
-            {{ Form::label('adultos') }}
-            {{ Form::text('adultos', $reserva->adultos, ['class' => 'form-control' . ($errors->has('adultos') ? ' is-invalid' : ''), 'placeholder' => 'Adultos']) }}
+            {{ Form::label('Cant. adultos') }}
+            {{ Form::select('adultos', range(0, 8), $reserva->adultos, ['class' => 'form-control' . ($errors->has('adultos') ? ' is-invalid' : '')]) }}
             {!! $errors->first('adultos', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
-            {{ Form::label('ninos') }}
-            {{ Form::text('ninos', $reserva->ninos, ['class' => 'form-control' . ($errors->has('ninos') ? ' is-invalid' : ''), 'placeholder' => 'Ninos']) }}
+            {{ Form::label('Cant. ninos') }}
+            {{ Form::select('ninos', range(0, 8), $reserva->ninos, ['class' => 'form-control' . ($errors->has('ninos') ? ' is-invalid' : '')]) }}
             {!! $errors->first('ninos', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
@@ -31,25 +26,26 @@
             {{ Form::text('valor', $reserva->valor, ['class' => 'form-control' . ($errors->has('valor') ? ' is-invalid' : ''), 'placeholder' => 'Valor']) }}
             {!! $errors->first('valor', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+    @auth
+    @if (auth()->user()->id_rol==1 || auth()->user()->id_rol==2)
         <div class="form-group">
             {{ Form::label('documento') }}
-            {{ Form::text('documento', $reserva->documento, ['class' => 'form-control' . ($errors->has('documento') ? ' is-invalid' : ''), 'placeholder' => 'Documento']) }}
+            {{ Form::select('documento', $user, $reserva->documento, ['class' => 'form-control' . ($errors->has('documento') ? ' is-invalid' : '')]) }}
             {!! $errors->first('documento', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+    @elseif (auth()->user()->id_rol==3)
+        {{form::hidden('documento', $reserva->documento ?? auth()->user()->documento)}}
+    @endif
+    @endauth
         <div class="form-group">
-            {{ Form::label('est_id') }}
-            {{ Form::text('est_id', $reserva->est_id, ['class' => 'form-control' . ($errors->has('est_id') ? ' is-invalid' : ''), 'placeholder' => 'Est Id']) }}
-            {!! $errors->first('est_id', '<div class="invalid-feedback">:message</div>') !!}
+            {{ Form::label('nro_hab') }}
+            {{ Form::select('nro_hab', $nro_hab, $reserva->nro_hab, ['class' => 'form-control' . ($errors->has('nro_hab') ? ' is-invalid' : '')]) }}
+            {!! $errors->first('nro_hab', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-        <div class="form-group">
-            {{ Form::label('habitacion_id') }}
-            {{ Form::text('habitacion_id', $reserva->est_id, ['class' => 'form-control' . ($errors->has('habitacion_id') ? ' is-invalid' : ''), 'placeholder' => 'Hab id']) }}
-            {!! $errors->first('habitacion_id', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-
+        {{form::hidden('est_id', $reserva->est_id ?? '2')}}
 
     </div>
     <div class="box-footer mt20">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="submit" class="btn pepe">{{ __('Confirmar') }}</button>
     </div>
-</div> 
+</div>

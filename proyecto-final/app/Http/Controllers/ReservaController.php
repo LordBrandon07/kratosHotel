@@ -6,6 +6,7 @@ use App\Models\Reserva;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use App\Habitacione;
 
 /**
  * Class ReservaController
@@ -44,19 +45,25 @@ class ReservaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        // Validar los campos de entrada, incluida la fecha
-        $request->validate([
-            'fecha_inicio' => 'required|date|after_or_equal:' . Carbon::today()->toDateString(),
-            // Añade aquí otras reglas de validación si es necesario
-        ]);
-    
-        // Crear la reserva si la validación pasa
-        $reserva = Reserva::create($request->all());
-    
-        return redirect()->route('reservas.index')
-            ->with('success', 'Reserva created successfully.');
-    }
+        {
+            // Validar los campos de entrada, incluida la fecha
+            $request->validate([
+                'fecha_inicio' => 'required|date|after_or_equal:' . Carbon::today()->toDateString(),
+                // Añade aquí otras reglas de validación si es necesario
+            ]);
+
+            // Crear la reserva si la validación pasa
+            $reserva = Reserva::create($request->all());
+
+            // Obtener la habitación asociada a la reserva
+            $habitacion = Habitacione::find($request->input('habitacion_id'));
+
+            // Cambiar el estado de la habitación a inactivo (estado_id = 2)
+            $habitacion->update(['estado_id' => 2]);
+
+            return redirect()->route('reservas.index')
+                ->with('success', 'Reserva created successfully.');
+        }
 
     /**
      * Display the specified resource.

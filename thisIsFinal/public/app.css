@@ -1,0 +1,103 @@
+body{
+    color: black;
+    background-image: url(./img/backgr.jpeg);
+}
+
+
+
+.headerr{ 
+    background-color: #008349;
+    margin-bottom: 20px;
+}
+
+.logoo{
+    padding: 1%;
+}
+
+.navv{
+    margin-left: 5%;
+}
+
+.ull{
+    margin-left: 5%;
+}
+
+.welcome{
+    position: absolute;
+    left: 90%;
+    top: 5%;
+}
+
+.card{
+    padding: 5%;
+    border-radius: 40px;
+    background-color: white;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link {
+    color: rgb(9, 185, 18);
+}
+
+.pepe, .pepea{
+    background-color: #008349;
+    border-radius: 15px;
+    color: white;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.pepe:hover{
+    background-color: black;
+    color: white;
+}
+
+.nav-text{
+    color: white;
+}
+
+.nav-text:hover,
+.nav-text-p:hover{
+    background-color: white;
+    color: black;
+}
+
+.nav-text-p{
+    background-color: #009e57;
+    color: white;
+    border-radius: 5px;
+}
+
+.logoo{
+    position: absolute;
+    left: 2%;
+}
+
+.yaya{
+width: 50%;
+}
+
+section img{
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 50px
+}
+
+@media screen and (max-width: 768px) {
+    .navbar-brand {
+      display: none;
+    }
+    .welcome{
+        position: static;
+    }
+}
+
+@media screen and (max-width: 1244px) {
+    .welcome{
+        position: static;
+    }
+    .ull{
+        margin-left: 0%;
+    }
+}
