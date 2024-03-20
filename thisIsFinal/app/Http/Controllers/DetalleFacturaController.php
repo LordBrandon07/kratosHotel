@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetalleFactura;
+use App\Models\Factura;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
 
 
@@ -21,7 +23,9 @@ class DetalleFacturaController extends Controller
     public function create()
     {
         $detalleFactura = new DetalleFactura();
-        return view('detalle-factura.create', compact('detalleFactura'));
+        $factura = Factura::pluck('id','id');
+        $servicio = Servicio::pluck('tipo_serv','id');
+        return view('detalle-factura.create', compact('detalleFactura','factura','servicio'));
     }
 
 
@@ -43,12 +47,7 @@ class DetalleFacturaController extends Controller
         return view('detalle-factura.show', compact('detalleFactura'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $detalleFactura = DetalleFactura::find($id);
@@ -56,13 +55,7 @@ class DetalleFacturaController extends Controller
         return view('detalle-factura.edit', compact('detalleFactura'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  DetalleFactura $detalleFactura
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, DetalleFactura $detalleFactura)
     {
         request()->validate(DetalleFactura::$rules);
@@ -73,11 +66,7 @@ class DetalleFacturaController extends Controller
             ->with('success', 'DetalleFactura updated successfully');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
+
     public function destroy($id)
     {
         $detalleFactura = DetalleFactura::find($id)->delete();

@@ -28,6 +28,11 @@ body{
     top: 5%;
 }
 
+.register{
+    display: flex;
+    justify-content: end;
+}
+
 .card{
     padding: 5%;
     border-radius: 40px;

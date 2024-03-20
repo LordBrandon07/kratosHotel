@@ -33,8 +33,8 @@ class UserController extends Controller
         $request->validate([
             'tipo_doc' => 'required|in:"CC","CE","PS","PEP"',
             'documento' => 'required|numeric|digits_between:5,15',
-            'nombres' => 'required|alpha',
-            'apellidos' => 'required|alpha',
+            'nombres' => 'required|regex:/^[a-zA-Z\s]+$/',
+            'apellidos' => 'required|regex:/^[a-zA-Z\s]+$/',
             'fecha_nacimiento' => 'required|date|before_or_equal:-18 years', // Asegura que la fecha de nacimiento sea de hace al menos 18 años
             'email' => [
                 'required',

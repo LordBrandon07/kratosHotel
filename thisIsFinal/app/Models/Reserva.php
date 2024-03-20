@@ -9,8 +9,8 @@ class Reserva extends Model
 {
     
     static $rules = [
-		'adultos' => 'required|numeric|min:0|max:8-ninos',
-		'ninos' => 'required|numeric|min:0|max:8-adultos',
+		'adultos' => 'required|numeric|min:0|max:8',
+		'ninos' => 'required|numeric|min:0|max:8',
 		'fecha_inicio' => 'required|date|after_or_equal:yesterday',
 		'fecha_final' => 'required|date|after:fecha_inicio',
 		'valor' => 'required|numeric|min:0',

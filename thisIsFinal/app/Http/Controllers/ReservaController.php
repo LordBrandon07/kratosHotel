@@ -33,11 +33,7 @@ class ReservaController extends Controller
 
     public function store(Request $request)
     {
-        // Validar los campos de entrada, incluida la fecha
-        $request->validate([
-            'fecha_inicio' => 'required|date|after_or_equal:' . Carbon::today()->toDateString(),
-            // Añade aquí otras reglas de validación si es necesario
-        ]);
+        $request->validate(Reserva::$rules);
     
         // Crear la reserva si la validación pasa
         $reserva = Reserva::create($request->all());

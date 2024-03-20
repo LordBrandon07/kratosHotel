@@ -69,7 +69,7 @@
           @endauth
           @guest
           <ul class="nav nav-pills d-flex justify-content-center py-3">
-          <li class="nav-item "><a href="{{ route('users.create') }}" class="nav-link nav-text">Registro</a></li>
+          <li class="nav-item register"><a href="{{ route('users.create') }}" class="nav-link nav-text">Registro</a></li>
           </ul>
           @endguest
           </div>

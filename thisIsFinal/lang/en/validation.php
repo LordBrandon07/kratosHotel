@@ -40,7 +40,7 @@ return [
     'declined_if' => 'The :attribute must be declined when :other is :value.',
     'different' => 'The :attribute and :other must be different.',
     'digits' => 'The :attribute must be :digits digits.',
-    'digits_between' => 'The :attribute must be between :min and :max digits.',
+    'digits_between' => 'El :attribute debe estar entre :min y :max digitos.',
     'dimensions' => 'The :attribute has invalid image dimensions.',
     'distinct' => 'The :attribute field has a duplicate value.',
     'email' => 'The :attribute must be a valid email address.',

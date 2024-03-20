@@ -21,11 +21,6 @@
             {{ Form::date('fecha_final', $reserva->fecha_final, ['class' => 'form-control' . ($errors->has('fecha_final') ? ' is-invalid' : '')]) }}
             {!! $errors->first('fecha_final', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-        <div class="form-group">
-            {{ Form::label('valor') }}
-            {{ Form::text('valor', $reserva->valor, ['class' => 'form-control' . ($errors->has('valor') ? ' is-invalid' : ''), 'placeholder' => 'Valor']) }}
-            {!! $errors->first('valor', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
     @auth
     @if (auth()->user()->id_rol==1 || auth()->user()->id_rol==2)
         <div class="form-group">
@@ -42,6 +37,7 @@
             {{ Form::select('nro_hab', $nro_hab, $reserva->nro_hab, ['class' => 'form-control' . ($errors->has('nro_hab') ? ' is-invalid' : '')]) }}
             {!! $errors->first('nro_hab', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+        {{form::hidden('valor', $reserva->valor ?? '0')}}
         {{form::hidden('est_id', $reserva->est_id ?? '2')}}
 
     </div>

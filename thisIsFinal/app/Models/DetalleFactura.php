@@ -13,7 +13,7 @@ class DetalleFactura extends Model
 		'reserva_id' => '',
 		'servicio_id' => '',
 		'cantidad' => 'required|numeric|min:0',
-		'valor' => 'required|numeric|min:0',
+		'valor' => 'numeric|min:0',
     ];
 
     protected $perPage = 20;
