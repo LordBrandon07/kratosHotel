@@ -26,7 +26,7 @@
 
     <section id="about-me" class="about section-padding">
             <div class="container">
-                <h2 class="tittle text-center">About</h2>
+                <h2 class="tittle text-center">Sobre Nosotros</h2>
                 <div class="row">
                     <div class="col-sm-2 col-md-12 col-lg-6">
                         <img class="my-photo index-img" src="img/index1.png" alt="">
