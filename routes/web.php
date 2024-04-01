@@ -28,7 +28,7 @@ use App\Http\Controllers\DetalleFacturaController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('home');
 });
 
 Route::resource('users', UserController::class);
@@ -46,4 +46,4 @@ Route::get('auth/create', [UserController::class,'create'])->name('auth.create')
 Route::get('login', [LoginController::class,'index'])->name('login');
 Route::post('logout', [LogoutController::class,'store'])->name('logout');
 Route::post('login', [LoginController::class,'store']);
-Route::get('home', [HomeController::class,'index'])->name('home.index')->middleware('auth');
+Route::get('home', [HomeController::class,'index'])->name('home')->middleware('auth');

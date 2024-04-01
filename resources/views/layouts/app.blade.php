@@ -11,7 +11,7 @@
 <body>
     <!-- Nav tabs -->
     <div class="headerr">
-    <a class="navbar-brand logoo" href="#"><img src="img/logow.png" width="40px" alt="Logo"></a>
+    <a class="navbar-brand logoo" href="/"><img src="img/logow.png" width="40px" alt="Logo"></a>
       <div class="container py-3 ">
   
         <header>
@@ -70,6 +70,7 @@
           @guest
           <ul class="nav nav-pills d-flex justify-content-center py-3">
           <li class="nav-item register"><a href="{{ route('users.create') }}" class="nav-link nav-text">Registro</a></li>
+          <li class="nav-item register"><a href="{{ route('login') }}" class="nav-link nav-text">Iniciar sesion</a></li>
           </ul>
           @endguest
           </div>
@@ -96,6 +97,26 @@
         bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
     </script>
     
+    <!-- footer -->
+  <div class="bg-dark footer">
+      <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p class="col-md-4 mb-0 text-white">© 2024 Kratos, S.A.S</p>
+
+        <a href="/" width="20px" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <img src="img/logow.png" width="15%" alt="">
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
+          <!-- <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>-->
+          <li class="nav-item"><a href="#services" class="nav-link px-2 text-body-secondary">Services</a></li>
+          <li class="nav-item"><a href="#about-me" class="nav-link px-2 text-body-secondary">About</a></li> 
+        </ul>
+      </footer>
+    </div>
+  </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
