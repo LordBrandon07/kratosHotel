@@ -37,6 +37,7 @@
                             {{ $factura->id_cliente }}
                         </div>
                     </div>
+                    <a class="btn pepe" onclick="window.print()">imprimir</a>
 
                 </div>
             </div>

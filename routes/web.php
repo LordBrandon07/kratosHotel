@@ -47,3 +47,5 @@ Route::get('login', [LoginController::class,'index'])->name('login');
 Route::post('logout', [LogoutController::class,'store'])->name('logout');
 Route::post('login', [LoginController::class,'store']);
 Route::get('home', [HomeController::class,'index'])->name('home')->middleware('auth');
+
+Route::get('/factura/{id}', 'FacturaController@imprimirFactura');

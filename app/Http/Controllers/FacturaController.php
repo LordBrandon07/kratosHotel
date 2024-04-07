@@ -70,4 +70,12 @@ class FacturaController extends Controller
         return redirect()->route('facturas.index')
             ->with('success', 'Factura deleted successfully');
     }
+
+    public function imprimirFactura($id)
+    {
+        $reserva = Reserva::find($id);
+        // Aquí recuperas otros datos necesarios para la factura
+
+        return view('factura', compact('reserva'));
+    }
 }

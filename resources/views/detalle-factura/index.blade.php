@@ -37,7 +37,7 @@
                                         <th>No</th>
                                         
 										<th>Factura Id</th>
-										<th>Reserva Id</th>
+										
 										<th>Servicio Id</th>
 										<th>Cantidad</th>
 										<th>Valor</th>
@@ -51,7 +51,7 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $detalleFactura->factura_id }}</td>
-											<td>{{ $detalleFactura->reserva_id }}</td>
+											
 											<td>{{ $detalleFactura->servicio_id }}</td>
 											<td>{{ $detalleFactura->cantidad }}</td>
 											<td>{{ $detalleFactura->valor }}</td>
