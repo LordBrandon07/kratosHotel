@@ -57,6 +57,21 @@
                                                 </form>
                                             </td>
                                         </tr>
+                                        @if (session('error'))
+                                            <script>
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title: "Oops...",
+                                                    text: "Estamos trabajando en ello!",
+                                                }).then((result) => {
+                                                    if (result.isConfirmed || result.isDismissed) {
+                                                        setTimeout(function(){
+                                                            window.location.href = "/";
+                                                        }, 3000); // 3000 milliseconds = 3 seconds
+                                                    }
+                                                });
+                                            </script>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

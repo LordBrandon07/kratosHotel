@@ -29,6 +29,9 @@
         @enderror
       </div>
       <button type="submit" class="btn pepe">Continuar</button>
+
+      <a type="submit" href="{{ route('forget.password') }}">¿olvidaste tu contraseña?</a>
+
     </form>
   </div>
   @endsection

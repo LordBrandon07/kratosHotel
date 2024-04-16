@@ -66,9 +66,12 @@ class HabitacioneController extends Controller
 
     public function destroy($id)
     {
-        $habitacione = Habitacione::find($id)->delete();
-
-        return redirect()->route('habitaciones.index')
-            ->with('success', 'Habitacione deleted successfully');
-    }
+        try{
+            $habitacione = Habitacione::find($id)->delete();
+            return redirect()->route('habitaciones.index')
+                ->with('success', 'Habitacion eliminadaccon exito');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al eliminar la habitacion: ' . $e->getMessage());
+        }
+    }    
 }

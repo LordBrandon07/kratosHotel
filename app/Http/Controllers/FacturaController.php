@@ -65,10 +65,13 @@ class FacturaController extends Controller
 
     public function destroy($id)
     {
-        $factura = Factura::find($id)->delete();
-
-        return redirect()->route('facturas.index')
-            ->with('success', 'Factura deleted successfully');
+        try{
+            $factura = Factura::find($id)->delete();
+            return redirect()->route('facturas.index')
+                ->with('success', 'Factura eliminada con exito');               
+        } catch  (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al eliminar la factura: ' . $e->getMessage());
+        }
     }
 
     public function imprimirFactura($id)

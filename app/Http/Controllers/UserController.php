@@ -99,10 +99,15 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user = User::find($id)->delete();
-        return redirect()->route('users.index')
-            ->with('success', 'Usuario eliminado correctamente...');
+        try {
+            $user = User::find($id)->delete();
+            return redirect()->route('users.index')
+                ->with('success', 'Usuario eliminado correctamente...');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al eliminar el usuario: ' . $e->getMessage());
+        }
     }
-
-
 }
+
+
+

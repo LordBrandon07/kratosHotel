@@ -74,8 +74,24 @@
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                 </form>
                                             </td>
+                                            @if (session('error'))
+                                            <script>
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title: "Oops...",
+                                                    text: "Estamos trabajando en ello!",
+                                                }).then((result) => {
+                                                    if (result.isConfirmed || result.isDismissed) {
+                                                        setTimeout(function(){
+                                                            window.location.href = "/";
+                                                        }, 3000); // 3000 milliseconds = 3 seconds
+                                                    }
+                                                });
+                                            </script>
+                                        @endif
+                                        @endif
                                         
-                                        @elseif (auth()->user()->id_rol==3 && $user->documento == auth()->user()->documento)     <!-- Cliente -->
+                                        @if (auth()->user()->id_rol==3 && $user->documento == auth()->user()->documento)     <!-- Cliente -->
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $user->tipo_doc }}</td>
                                             <td>{{ $user->documento }}</td>

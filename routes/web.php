@@ -13,6 +13,7 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\DetalleFacturaController;
+use App\Http\Controllers\ForgetPasswordManagerController;
 
 
 
@@ -47,5 +48,15 @@ Route::get('login', [LoginController::class,'index'])->name('login');
 Route::post('logout', [LogoutController::class,'store'])->name('logout');
 Route::post('login', [LoginController::class,'store']);
 Route::get('home', [HomeController::class,'index'])->name('home')->middleware('auth');
+
+
+
+Route::get('/forget-password', [ForgetPasswordManagerController::class,'forgetPassword'])->name('forget.password');
+Route::post('/forget-password', [ForgetPasswordManagerController::class,'forgetPasswordPost'])->name('forget.password.post');
+
+Route::get('/reset-password/{token}', [ForgetPasswordManagerController::class,'resetPassword'])->name('reset.password');
+Route::post('/reset-password', [ForgetPasswordManagerController::class,'resetPasswordPost'])->name('reset.password.post');
+
+
 
 Route::get('/factura/{id}', 'FacturaController@imprimirFactura');

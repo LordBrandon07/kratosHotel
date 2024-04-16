@@ -65,9 +65,13 @@ class EstadoController extends Controller
 
     public function destroy($id)
     {
-        $estado = Estado::find($id)->delete();
+        try{
+            $estado = Estado::find($id)->delete();
 
-        return redirect()->route('estados.index')
-            ->with('success', 'Estado deleted successfully');
+            return redirect()->route('estados.index')
+                ->with('success', 'Estado borrado corectamente.');
+        }catch (\Exception $e){
+            return redirect()->back()->with('error', 'Error al borrar el estado: ' .$e->getMessage());
+        }
     }
 }

@@ -76,7 +76,23 @@
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Borrar') }}</button>
                                                 </form>
                                             </td>
-                                        @elseif (auth()->user()->id_rol==3 && $reserva->documento == auth()->user()->documento)     <!-- Cliente -->
+                                            @if (session('error'))
+                                            <script>
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title: "Oops...",
+                                                    text: "Estamos trabajando en ello!",
+                                                }).then((result) => {
+                                                    if (result.isConfirmed || result.isDismissed) {
+                                                        setTimeout(function(){
+                                                            window.location.href = "/";
+                                                        }, 3000); // 3000 milliseconds = 3 seconds
+                                                    }
+                                                });
+                                            </script>
+                                        @endif
+                                        @endif    
+                                        @if (auth()->user()->id_rol==3 && $reserva->documento == auth()->user()->documento)     <!-- Cliente -->
                                             <td>{{ ++$i }}</td>
                                                 <td>{{ $reserva->adultos }}</td>
                                                 <td>{{ $reserva->ninos }}</td>

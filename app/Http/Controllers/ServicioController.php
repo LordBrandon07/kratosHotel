@@ -65,9 +65,13 @@ class ServicioController extends Controller
 
     public function destroy($id)
     {
-        $servicio = Servicio::find($id)->delete();
+        try{
+            $servicio = Servicio::find($id)->delete();
 
-        return redirect()->route('servicios.index')
-            ->with('success', 'Servicio deleted successfully');
+            return redirect()->route('servicios.index')
+                ->with('success', 'Servicio borrado con exito ');
+        } catch (\Exception $e){
+            return redirect()->back()->with('error', 'Error al borrar servicio: '. $e->getMessage());
+        }
     }
 }

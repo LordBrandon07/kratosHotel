@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 19-03-2024 a las 22:09:33
--- Versión del servidor: 10.5.20-MariaDB
--- Versión de PHP: 7.3.33
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 16-04-2024 a las 02:12:47
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `id21935386_kratos_hotel`
+-- Base de datos: `kratos_hotel_final`
 --
 
 -- --------------------------------------------------------
@@ -43,14 +43,27 @@ CREATE TABLE `detalle_facturas` (
 --
 
 INSERT INTO `detalle_facturas` (`id`, `factura_id`, `reserva_id`, `servicio_id`, `cantidad`, `valor`, `created_at`, `updated_at`) VALUES
-(1, 2, NULL, 1, 3, 45000.00, '2024-03-19 19:10:07', '2024-03-19 19:10:07'),
-(2, 2, NULL, 1, 3, 45000.00, '2024-03-19 19:18:51', '2024-03-19 19:18:51'),
-(3, 2, NULL, 1, 4, 60000.00, '2024-03-19 19:19:38', '2024-03-19 19:19:38'),
-(4, 2, NULL, 2, 2, 160000.00, '2024-03-19 20:23:24', '2024-03-19 20:23:24');
+(12, 5, NULL, 1, 2, 30000.00, '2024-04-15 05:21:45', '2024-04-15 05:21:45'),
+(13, 8, NULL, 1, 2, 30000.00, '2024-04-16 05:11:05', '2024-04-16 05:11:05');
 
 --
 -- Disparadores `detalle_facturas`
 --
+DELIMITER $$
+CREATE TRIGGER `actualizar_total_factura` AFTER INSERT ON `detalle_facturas` FOR EACH ROW BEGIN
+    DECLARE total_actual double(10,2);
+    
+    -- Obtener el total actual de la factura
+    SELECT total INTO total_actual FROM facturas WHERE id = NEW.factura_id;
+    
+    -- Sumar el valor del nuevo detalle al total de la factura
+    SET total_actual = total_actual + (NEW.cantidad * NEW.valor / 2);
+    
+    -- Actualizar el total de la factura en la tabla facturas
+    UPDATE facturas SET total = total_actual WHERE id = NEW.factura_id;
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `calcular_valor_consumo` BEFORE INSERT ON `detalle_facturas` FOR EACH ROW BEGIN
 	DECLARE precio_servicio DECIMAL(10,2);
@@ -104,7 +117,36 @@ CREATE TABLE `facturas` (
 --
 
 INSERT INTO `facturas` (`id`, `fecha`, `impuesto`, `total`, `id_cliente`, `created_at`, `updated_at`) VALUES
-(2, '2024-03-14 05:00:00', 0.70, 4000000.00, '11111', '2024-03-15 05:38:23', '2024-03-15 05:40:25');
+(2, '2024-03-14 05:00:00', 0.70, 4000000.00, '11111', '2024-03-15 05:38:23', '2024-03-15 05:40:25'),
+(5, '2024-04-15 00:21:45', 0.00, 60000.00, '44444', '2024-04-12 04:18:43', '2024-04-12 04:19:30'),
+(8, '2024-04-16 00:11:05', 0.00, 80000.00, '66666', '2024-04-16 05:09:33', '2024-04-16 05:09:33');
+
+--
+-- Disparadores `facturas`
+--
+DELIMITER $$
+CREATE TRIGGER `actualizar_estado_reserva` AFTER INSERT ON `facturas` FOR EACH ROW BEGIN
+    DECLARE reserva_id BIGINT UNSIGNED;
+    
+    -- Encuentra el ID de la reserva asociada a esta factura
+    SELECT id INTO reserva_id FROM reservas WHERE documento = NEW.id_cliente;
+    
+    -- Actualiza el estado de la reserva a 'activo'
+    UPDATE reservas SET est_id = 1 WHERE id = reserva_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `actualizar_total_factura_reserva` BEFORE INSERT ON `facturas` FOR EACH ROW BEGIN
+    -- Encuentra el valor de la reserva asociada a esta factura
+    DECLARE reserva_valor DOUBLE(12,2);
+    SELECT valor INTO reserva_valor FROM reservas WHERE documento = NEW.id_cliente;
+    
+    -- Asigna el valor de la reserva al total de la factura
+    SET NEW.total = reserva_valor;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -149,7 +191,8 @@ INSERT INTO `habitaciones` (`id`, `hab_numero`, `tipo_hab`, `tarifa`, `capacidad
 (2, '103', 1, 20000.00, 2, 'https://hotelcasamorales.com/wp-content/uploads/2018/11/DSC016701.jpg', 0, '2024-03-15 09:59:42', '2024-03-19 18:18:28'),
 (3, '104', 3, 50000.00, 2, 'sppspsp', 0, '2024-03-19 20:20:07', '2024-03-19 20:20:07'),
 (4, '105', 2, 90000.00, 3, 'Sasss', 0, '2024-03-19 20:27:38', '2024-03-19 20:30:31'),
-(5, '107', 1, 50000.00, 2, 'blalbalb', 0, '2024-03-19 21:28:09', '2024-03-19 21:28:09');
+(5, '107', 1, 50000.00, 2, 'blalbalb', 0, '2024-03-19 21:28:09', '2024-03-19 21:28:09'),
+(6, '102', 1, 25000.00, 2, 'https://hotelibiza.co/wp-content/uploads/2018/07/hotelibiza_habitacion_sencilla_02.jpg', 0, '2024-04-08 02:23:14', '2024-04-16 05:06:28');
 
 -- --------------------------------------------------------
 
@@ -238,9 +281,9 @@ CREATE TABLE `reservas` (
 INSERT INTO `reservas` (`id`, `adultos`, `ninos`, `fecha_inicio`, `fecha_final`, `valor`, `documento`, `nro_hab`, `est_id`, `created_at`, `updated_at`) VALUES
 (10, 2, 2, '2024-03-19', '2024-03-20', 20000.00, '1000626703', '101', 2, '2024-03-19 18:19:08', '2024-03-19 18:19:08'),
 (11, 4, 0, '2024-03-20', '2024-03-25', 100000.00, '44444', '103', 2, '2024-03-19 18:24:13', '2024-03-19 18:24:13'),
-(12, 2, 3, '2024-03-19', '2024-03-20', 50000.00, '66666', '104', 2, '2024-03-19 20:21:12', '2024-03-19 20:21:12'),
 (13, 1, 2, '2024-03-18', '2024-03-20', 180000.00, '1000626703', '105', 2, '2024-03-19 20:28:18', '2024-03-19 20:28:18'),
-(14, 1, 1, '2024-03-19', '2024-03-20', 50000.00, '77777', '107', 2, '2024-03-19 21:29:06', '2024-03-19 21:29:06');
+(14, 1, 1, '2024-03-19', '2024-03-20', 50000.00, '77777', '107', 2, '2024-03-19 21:29:06', '2024-03-19 21:29:06'),
+(17, 2, 2, '2024-04-16', '2024-04-18', 50000.00, '66666', '102', 1, '2024-04-16 05:06:51', '2024-04-16 05:06:51');
 
 --
 -- Disparadores `reservas`
@@ -381,7 +424,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `tipo_doc`, `documento`, `nombres`, `apellidos`, `fecha_nacimiento`, `email`, `email_verified_at`, `password`, `remember_token`, `telefono`, `id_rol`, `created_at`, `updated_at`) VALUES
-(1, 'CC', '11111', 'pepito', 'perez', '2000-02-02', 'pepe@gmail.com', NULL, '$2y$10$BLGfnw1hYkrRUZVnJej/EOq4wnwgE/F0qekKLxG8UTLOVrvq1kUxC', NULL, '232243443', 2, '2024-03-15 05:37:17', '2024-03-19 20:23:52'),
+(1, 'CC', '11111', 'pepito', 'perez', '2000-02-02', 'pepe@gmail.com', NULL, '$2y$10$drflIBXKLNxh248wf6H1dOPeJrCtq17DrK.YrVqRUu3fhRXTI.0hK', NULL, '232243443', 2, '2024-03-15 05:37:17', '2024-04-15 05:06:50'),
 (2, 'CC', '22222', 'Diego', 'Moreno', '2000-02-02', 'diego@moreno.com', NULL, '$2y$10$ujCBnwl8bVtwgr1.OcAam.h7e5G.IWJoCgEV1PNtdBiNC3.qdySv2', NULL, '232344546455', 4, '2024-03-15 08:34:24', '2024-03-15 09:31:32'),
 (3, 'CC', '33333', 'checho', 'chacha', '2000-02-02', 'checho@checo.com', NULL, '$2y$10$yiQ/78S091nhR25aC98vUOCP.5Rd6Ao08OwTjMTNNgaUQf62oUkQC', NULL, '4325365757', 1, '2024-03-15 08:39:44', '2024-03-15 09:43:28'),
 (4, 'PS', '44444', 'Fabian', 'Masas', '2000-02-02', 'fabian@masas.com', NULL, '$2y$10$idtKG8EZFo96hwDkS07lr.KRVBjpWM4UPVqMsZItZMoQOfkSCkss2', NULL, '244325464', 3, '2024-03-15 09:34:08', '2024-03-15 09:34:08'),
@@ -496,7 +539,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `detalle_facturas`
 --
 ALTER TABLE `detalle_facturas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -508,7 +551,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -520,7 +563,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `habitaciones`
 --
 ALTER TABLE `habitaciones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -538,7 +581,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -562,7 +605,7 @@ ALTER TABLE `tipos`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas

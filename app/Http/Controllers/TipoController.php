@@ -64,10 +64,13 @@ class TipoController extends Controller
 
 
     public function destroy($id)
-    {
-        $tipo = Tipo::find($id)->delete();
-
-        return redirect()->route('tipos.index')
-            ->with('success', 'Tipo deleted successfully');
+    {   
+        try{
+            $tipo = Tipo::find($id)->delete();
+            return redirect()->route('tipos.index')
+                ->with('success', 'Tipo de habitacion eliminado');
+            }catch (\Exception $e) {
+            return redirect()->back()->with('error','Error al eliminarl el tipo de habitacion: '. $e->getMessage() );
+        }
     }
 }

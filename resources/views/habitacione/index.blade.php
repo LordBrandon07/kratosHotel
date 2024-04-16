@@ -56,16 +56,31 @@
 											<td>{{ $habitacione->disponible ? 'Sì' : 'No' }}</td>
                                             <td>
                                                 <form class="btn-group" role="group" action="{{ route('habitaciones.destroy',$habitacione->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-info " href="{{ route('habitaciones.show',$habitacione->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-info " href="{{ route('habitaciones.show',$habitacione->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Ver') }}</a>
                                                     @if (auth()->user()->id_rol==1)
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('habitaciones.edit',$habitacione->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <a class="btn btn-sm btn-primary" href="{{ route('habitaciones.edit',$habitacione->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                     @endif
                                                 </form>
                                             </td>
                                         </tr>
+                                        @if (session('error'))
+                                        <script>
+                                            Swal.fire({
+                                                icon: "error",
+                                                title: "Oops...",
+                                                text: "Estamos trabajando en ello!",
+                                            }).then((result) => {
+                                                if (result.isConfirmed || result.isDismissed) {
+                                                    setTimeout(function(){
+                                                        window.location.href = "/";
+                                                    }, 3000); // 3000 milliseconds = 3 seconds
+                                                }
+                                            });
+                                        </script>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
